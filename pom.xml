@@ -149,5 +149,12 @@
             </plugin>
         </plugins>
     </build>
+    
+    <developers>
+    	<developer>
+    		<name>Wesley Castelani</name>
+    		<email>wesleycastelani96@gmail.com</email>
+    	</developer>
+    </developers>
 
 </project>
