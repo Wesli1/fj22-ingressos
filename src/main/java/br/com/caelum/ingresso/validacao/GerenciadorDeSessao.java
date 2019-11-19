@@ -22,8 +22,8 @@ public class GerenciadorDeSessao {
 		return sessoesDaSala.stream().noneMatch(sessaoExistente -> horarioIsConflitante(sessaoExistente, sessaoNova));
 	}
 
-	private boolean terminaAmanha(Sessao sessaoNova) {
-		LocalDateTime terminoSessaoNova = getTerminoSessaoComDiadeHoje(sessao);
+	private boolean terminaAmanha(Sessao sessao) {
+		LocalDateTime terminoSessaoNova = getTerminoSessaoComDiaDeHoje(sessao);
 		LocalDateTime ultimoSegundoDeHoje = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
 		
 		if(terminoSessaoNova.isAfter(ultimoSegundoDeHoje)) {
@@ -44,16 +44,16 @@ public class GerenciadorDeSessao {
 		if(sessaoNovaTerminaAntesDaExistente || sessaoNovaComecaDepoisDaExistente) {
 			return false;
 		}
-		return true
+		return true;
 	}
 
-	private LocalDateTime getTerminoSessaoComDiaDeHoje(Sessao sessao) {
+	private LocalDateTime getInicioSessaoComDiaDeHoje(Sessao sessao) {
 		LocalDate hoje = LocalDate.now();
 		
 		return sessao.getHorario().atDate(hoje);
 	}
 
-	private LocalDateTime getInicioSessaoComDiaDeHoje(Sessao sessao) {
+	private LocalDateTime getTerminoSessaoComDiaDeHoje(Sessao sessao) {
 		LocalDateTime inicioSessaoNova = getInicioSessaoComDiaDeHoje(sessao);
 		
 		return inicioSessaoNova.plus(sessao.getFilme().getDuracao());
