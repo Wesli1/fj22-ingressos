@@ -1,9 +1,12 @@
 package br.com.caelum.ingresso.model.form;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,11 +18,11 @@ public class SalaForm {
 
     @NotBlank
     private String nome;
-    @NotBlank
-    private BigDecimal preco;
+    @NotNull
+    private BigDecimal preco = BigDecimal.ZERO;
 
     public BigDecimal getPreco() {
-		return preco;
+    	return preco.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	public void setPreco(BigDecimal preco) {

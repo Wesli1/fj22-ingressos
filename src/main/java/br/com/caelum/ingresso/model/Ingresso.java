@@ -3,16 +3,38 @@ package br.com.caelum.ingresso.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import br.com.caelum.ingresso.model.desconto.Desconto;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Ingresso {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
+	@ManyToOne
 	private Sessao sessao;
 	private BigDecimal preco;
+	@ManyToOne
+	private Lugar lugar;
 	
-	public Ingresso(Sessao sessao, Desconto tipoDeDesconto) {
+	@Enumerated(EnumType.STRING)
+	TipoDeIngresso tipoDeIngresso;
+	
+	@Deprecated
+	public Ingresso() {}
+	
+	public Ingresso(Sessao sessao, TipoDeIngresso tipoDeIngresso, Lugar lugar) {
 		this.setSessao(sessao);
-		this.preco = tipoDeDesconto.aplicarDescontosSobre(sessao.getPreco());
+		this.tipoDeIngresso = tipoDeIngresso;
+		this.preco = this.tipoDeIngresso.aplicaDesconto(sessao.getPreco());
+		
+		this.setLugar(lugar);
 	}
 	
 	public BigDecimal getPreco() {
@@ -29,5 +51,13 @@ public class Ingresso {
 
 	public void setSessao(Sessao sessao) {
 		this.sessao = sessao;
+	}
+
+	public Lugar getLugar() {
+		return lugar;
+	}
+
+	public void setLugar(Lugar lugar) {
+		this.lugar = lugar;
 	}
 }
