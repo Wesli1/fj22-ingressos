@@ -26,6 +26,14 @@ public class Ingresso {
 	@Enumerated(EnumType.STRING)
 	TipoDeIngresso tipoDeIngresso;
 	
+	public TipoDeIngresso getTipoDeIngresso() {
+		return tipoDeIngresso;
+	}
+
+	public void setTipoDeIngresso(TipoDeIngresso tipoDeIngresso) {
+		this.tipoDeIngresso = tipoDeIngresso;
+	}
+
 	@Deprecated
 	public Ingresso() {}
 	
